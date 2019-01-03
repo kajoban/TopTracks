@@ -33,8 +33,8 @@ class App extends Component {
     }
     return hashParams;
   }
-  getTopTracks(){
-    spotifyApi.getMyTopTracks({limit: 20, time_range: 'long_term'})
+  getTopTracks(range){
+    spotifyApi.getMyTopTracks({limit: 20, time_range: range})
       .then((response) => {
         console.log(response)
         this.setState({
@@ -46,23 +46,39 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        {
+        !this.state.loggedIn && 
         <a href='http://localhost:8888'>Login to Spotify</a>
+        }
         <div>
-          Top Tracks: 
+          <h1>Top Tracks: </h1>
         </div>
+        { //long term tracks buttons 
+        this.state.loggedIn &&
+        <button onClick={() => this.getTopTracks('long_term')}>
+          All Time
+        </button>
+        }
+        { //long term tracks buttons 
+        this.state.loggedIn &&
+        <button onClick={() => this.getTopTracks('medium_term')}>
+          Last Year
+        </button>
+        }
+        { //long term tracks buttons 
+        this.state.loggedIn &&
+        <button onClick={() => this.getTopTracks('short_term')}>
+          Recent
+        </button>
+        }
         {
           this.state.tracks.map((post) => 
           <div key={post.id}>
-            <span>{post.name}</span> <br/>
-            <span> <img src={post.album.images[0].url} style={{ height: 150 }}></img> </span>
+            <span><a href={post.artists[0].external_urls.spotify} target="_blank">{post.artists[0].name}</a>: <a href={post.external_urls.spotify} target="_blank">{post.name}</a></span> <br/>
+            <span><a href={post.external_urls.spotify} target="_blank"><img src={post.album.images[0].url} className='pic' style={{ height: 150 }}></img></a></span>
           </div>
           )
         }
-      { this.state.loggedIn &&
-        <button onClick={() => this.getTopTracks()}>
-          Get Top Tracks!
-        </button>
-      }
       </div>
     )
   }
