@@ -9,6 +9,13 @@ import List from './components/List.js';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 
+/*
+TODO:
+-make each track block a component 
+-figure out whats up with the buttons 
+-add top artists section 
+-add landing page for login 
+*/
 
 let options = { limit: 10, time_range: 'long_term' }
 
@@ -50,28 +57,28 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <LogIn loggedIn={this.state.loggedIn} />
-        <Title loggedIn={this.state.loggedIn} />
+        <LogIn loggedIn={this.state.loggedIn}/>
+        <Title loggedIn={this.state.loggedIn}/>
         <div>
-            { //long term tracks buttons 
-                this.state.loggedIn &&
-                <button onClick={() => this.getTopTracks('long_term')}>
-                    All Time
-            </button>
-            }
-            { //long term tracks buttons 
-                this.state.loggedIn &&
-                <button onClick={() => this.getTopTracks('medium_term')}>
-                    Last Year
-            </button>
-            }
-            { //long term tracks buttons 
-                this.state.loggedIn &&
-                <button onClick={() => this.getTopTracks('short_term')}>
-                    Recent
-            </button>
-            }
-        </div>
+          { //long term tracks buttons 
+              this.state.loggedIn &&
+              <button onClick={() => this.getTopTracks('long_term')}>
+                  All Time
+              </button>
+          }
+          { //long term tracks buttons 
+              this.state.loggedIn &&
+              <button onClick={() => this.getTopTracks('medium_term')}>
+                  Last Year
+              </button>
+          }
+          { //long term tracks buttons 
+              this.state.loggedIn &&
+              <button onClick={() => this.getTopTracks('short_term')}>
+                  Recent
+              </button>
+          }
+        </div>        
         <List tracks={this.state.tracks}/>
       </div>
     )
