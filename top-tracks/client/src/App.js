@@ -11,7 +11,6 @@ const spotifyApi = new SpotifyWebApi();
 
 /*
 TODO:
--make each track block a component 
 -figure out whats up with the buttons 
 -add top artists section 
 -add landing page for login 
